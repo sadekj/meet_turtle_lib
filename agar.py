@@ -1,13 +1,13 @@
 import meet
-user_cell = {'radius': 14, 'x':20, 'y':3, 'dx': 1, 'dy':1 ,'color':'red'}
+user_cell = {'radius': 14, 'x':20, 'y':3, 'dx': 1, 'dy':1 ,'color':'red', 'shape':'square'}
 
 cell1 = {'radius': 13, 'x':100, 'y':0, 'dx': 2, 'dy':1 ,'color':'black'}
 cell2 = {'radius': 15, 'x':-100, 'y':0, 'dx': -2.5, 'dy':-2.5, 'color':'black'}
 
 food1 = {'radius': 5, 'x':2, 'y':5, 'dx': 0, 'dy':0,'color':'yellow'}
 food2 = {'radius': 5, 'x':15, 'y':12, 'dx': 0, 'dy':0,'color':'green'}
-food3 = {'radius': 5, 'x':15, 'y':12, 'dx': 0, 'dy':0,'color':'green'}
-food4 = {'radius': 5, 'x':15, 'y':12, 'dx': 0, 'dy':0,'color':'green'}
+food3 = {'radius': 5, 'x':15, 'y':12, 'dx': 0, 'dy':0,'color':'blue'}
+food4 = {'radius': 5, 'x':15, 'y':12, 'dx': 0, 'dy':0,'color':'black'}
 food5 = {'radius': 5, 'x':15, 'y':12, 'dx': 0, 'dy':0,'color':'green'}
 food6 = {'radius': 5, 'x':15, 'y':12, 'dx': 0, 'dy':0,'color':'green'}
 
@@ -39,19 +39,37 @@ cells.append(food)
 food = meet.create_cell(food6)
 cells.append(food)
 
-meet.create_screen(300,350)
+food = meet.create_cell(food6)
+cells.append(food)
+food = meet.create_cell(food6)
+cells.append(food)
+food = meet.create_cell(food6)
+cells.append(food)
+food = meet.create_cell(food6)
+cells.append(food)
+food = meet.create_cell(food6)
+cells.append(food)
+food = meet.create_cell(food6)
+cells.append(food)
+food = meet.create_cell(food6)
+cells.append(food)
+food = meet.create_cell(food6)
+cells.append(food)
+food = meet.create_cell(food6)
+cells.append(food)
+
 
 
 ###########
 def check_walls(cells):
 	for cell in cells:
 		#print (str(cell.xcor()) + ", " +str(cell.ycor()) + " " + str(meet.get_screen_width()) + " " + str(meet.get_screen_height()))
-		if(cell != user_cell):
-			if(cell.xcor() > meet.get_screen_width() or cell.xcor() < -meet.get_screen_width()):
-				cell.set_dx(-cell.get_dx())
+		# if(cell != user_cell):
+		if(cell.xcor()+cell.get_radius() > meet.get_screen_width() or cell.xcor()-cell.get_radius() < -meet.get_screen_width()):
+			cell.set_dx(-cell.get_dx())
 
-			if(cell.ycor() > meet.get_screen_height() or cell.ycor() < -meet.get_screen_height()):
-				cell.set_dy(-cell.get_dy())
+		if(cell.ycor()+cell.get_radius() > meet.get_screen_height() or cell.ycor()-cell.get_radius() < -meet.get_screen_height()):
+			cell.set_dy(-cell.get_dy())
 
 def collide(cell1,cell2):
 	delta_x = cell2.xcor() - cell1.xcor()

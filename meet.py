@@ -4,6 +4,9 @@ import random
 mouse = Turtle()
 mouse.ht()
 mouse.pu()
+c=getcanvas()
+CANVAS_WIDTH = c.winfo_width()
+CANVAS_HEIGHT = c.winfo_height()
 
 class Cell(Turtle):
 	def __init__(self,r,x,y,dx,dy,color='black'):
@@ -31,10 +34,6 @@ class Cell(Turtle):
 		self.dy = dy
 	def get_speed(self):
 		return 150 / (self.r)
-	def ycor(self):
-		return super(Cell, self).ycor() + self.r
-	def org_ycor(self):
-		return super(Cell, self).ycor()
 
 
 
@@ -49,15 +48,21 @@ def create_cell(cell):
 def move_cell(c):
 	x = c.xcor()
 	dx = c.get_dx()
-	y = c.org_ycor()
+	y = c.ycor()
 	dy = c.get_dy()
 	r = c.get_radius()
-	c.goto(x+dx,y+dy)
+	c.goto(x+dx,y+dy-r)
 	c.begin_fill()
 	c.pd()
 	c.circle(c.get_radius())
 	c.pu()
 	c.end_fill()
+	x = c.xcor()
+	dx = c.get_dx()
+	y = c.ycor()
+	dy = c.get_dy()
+	r = c.get_radius()
+	c.goto(x+dx,y+dy+r)
 
 def move_cells(cells):
 	ht()
@@ -70,10 +75,12 @@ def create_screen(width, height):
 	getscreen().screensize(width,height)
 
 def get_screen_width():
-	return getscreen().screensize()[0]
+	global CANVAS_WIDTH
+	return CANVAS_WIDTH/2-10
 
 def get_screen_height():
-	return getscreen().screensize()[1]
+	global CANVAS_HEIGHT
+	return CANVAS_HEIGHT/2-5
 
 def get_x_mouse():
 	global mouse
@@ -84,7 +91,13 @@ def get_y_mouse():
 	return mouse.ycor()
 
 def movearound(event):
-	mouse.goto(event.x-336,387-event.y)
+	global CANVAS_WIDTH
+	global CANVAS_HEIGHT
+	mouse.goto(event.x-c.winfo_width()/2,c.winfo_height()/2-event.y)
+	if(CANVAS_WIDTH != c.winfo_width() or CANVAS_HEIGHT != c.winfo_height()):
+		getscreen().screensize(c.winfo_width()/2,c.winfo_height()/2)
+		CANVAS_WIDTH = c.winfo_width()
+		CANVAS_HEIGHT = c.winfo_height()
 
 def get_user_direction(cell):
 	mouse_x = get_x_mouse()
@@ -110,6 +123,5 @@ def get_random_x():
 def get_random_y():
 	return random.randint(-get_screen_height(), get_screen_height())
 
-c=getcanvas()
 c.bind("<Motion>", movearound)
 getscreen().listen()
