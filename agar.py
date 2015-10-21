@@ -5,11 +5,11 @@ cell1 = {'radius': 13, 'x':100, 'y':0, 'dx': 2, 'dy':1 ,'color':'black'}
 cell2 = {'radius': 15, 'x':-100, 'y':0, 'dx': -2.5, 'dy':-2.5, 'color':'black'}
 
 food1 = {'radius': 5, 'x':2, 'y':5, 'dx': 0, 'dy':0,'color':'yellow'}
-food2 = {'radius': 5, 'x':15, 'y':12, 'dx': 0, 'dy':0,'color':'green'}
-food3 = {'radius': 5, 'x':15, 'y':12, 'dx': 0, 'dy':0,'color':'blue'}
-food4 = {'radius': 5, 'x':15, 'y':12, 'dx': 0, 'dy':0,'color':'black'}
-food5 = {'radius': 5, 'x':15, 'y':12, 'dx': 0, 'dy':0,'color':'green'}
-food6 = {'radius': 5, 'x':15, 'y':12, 'dx': 0, 'dy':0,'color':'green'}
+food2 = {'radius': 5, 'x':50, 'y':12, 'dx': 0, 'dy':0,'color':'green'}
+food3 = {'radius': 5, 'x':60, 'y':12, 'dx': 0, 'dy':0,'color':'blue'}
+food4 = {'radius': 5, 'x':70, 'y':12, 'dx': 0, 'dy':0,'color':'black'}
+food5 = {'radius': 5, 'x':80, 'y':12, 'dx': 0, 'dy':0,'color':'green'}
+food6 = {'radius': 5, 'x':90, 'y':12, 'dx': 0, 'dy':0,'color':'green'}
 
 
 cells = []
@@ -21,6 +21,27 @@ food_eaten = False
 user_cell = meet.create_cell(user_cell)
 cells.append(user_cell)
 
+cell = meet.create_cell(cell1)
+cells.append(cell)
+cell = meet.create_cell(cell2)
+cells.append(cell)
+
+cell = meet.create_cell(cell1)
+cells.append(cell)
+cell = meet.create_cell(cell2)
+cells.append(cell)
+cell = meet.create_cell(cell1)
+cells.append(cell)
+cell = meet.create_cell(cell2)
+cells.append(cell)
+cell = meet.create_cell(cell1)
+cells.append(cell)
+cell = meet.create_cell(cell2)
+cells.append(cell)
+cell = meet.create_cell(cell1)
+cells.append(cell)
+cell = meet.create_cell(cell2)
+cells.append(cell)
 cell = meet.create_cell(cell1)
 cells.append(cell)
 cell = meet.create_cell(cell2)
@@ -94,6 +115,10 @@ def check_collision(cells):
 					c1.set_radius(c1.get_radius()+c2.get_radius()*0.1)
 					if(c2 == user_cell):
 						running = False
+					elif(c1 == user_cell):
+						meet.clear()
+						meet.goto(-meet.get_screen_width(),meet.get_screen_height()-10);
+						meet.write(user_cell.get_radius())
 				elif(c1.get_radius()<c2.get_radius()):
 					c1.goto(meet.get_random_x(),meet.get_random_y())
 					c2.set_radius(c2.get_radius()+c1.get_radius()*0.1)
@@ -104,7 +129,6 @@ def move_user_cell(user_cell):
 	xdir,ydir = meet.get_user_direction(user_cell)
 	user_cell.set_dy(ydir)
 	user_cell.set_dx(xdir)
-	#user_cell.goto(user_cell.xcor()+xdir,user_cell.ycor()+ydir)
 
 ############
 
@@ -118,3 +142,5 @@ while(running):
 		meet.move_cells(foods)
 	check_collision(cells)
 	#print ("------------------------")
+print ("You Lost")
+meet.mainloop()
