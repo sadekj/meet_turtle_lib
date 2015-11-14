@@ -96,12 +96,12 @@ def move_cells(cells):
 # This function returns the width of the screen
 def get_screen_width():
 	global CANVAS_WIDTH
-	return CANVAS_WIDTH/2-10
+	return int(CANVAS_WIDTH/2-10)
 
 # This function returns the height of the screen
 def get_screen_height():
 	global CANVAS_HEIGHT
-	return CANVAS_HEIGHT/2-5
+	return int(CANVAS_HEIGHT/2-5)
 
 # This function returns the x location of the mouse on the screen
 def get_x_mouse():
